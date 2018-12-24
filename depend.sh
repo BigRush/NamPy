@@ -8,7 +8,7 @@
 #
 # Description :  Installs dependencies for python
 #
-# Version :  0.0.1
+# Version :  1.0.0
 ################################################################################
 
 Root_Check () {
@@ -56,6 +56,7 @@ Wget_Check () {
                 exit 1
             fi
         fi
+    fi
 }
 
 Depend_Install () {
@@ -82,12 +83,14 @@ Depend_Install () {
 
         python3 setup.py install --user
 
-        if [[ $? -ne 0 ]]; then
+        if [[ $? -eq 0 ]]; then
+            printf "Python dependency installation has completed successfully\n"
+        else
             printf "Could not install python-nmcli dependency, please install it manually\n"
             exit 1
         fi
 
-        popd
+        popd &> /dev/null
         rm -rf python-depend
 }
 
